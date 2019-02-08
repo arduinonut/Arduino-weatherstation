@@ -1,4 +1,4 @@
 # Arduino-weatherstation
-Arduino weather station using tipping bucket rain gauge, ds18b20 temp sensor and 3d printed anemometer. 
+Arduino weather station using XD-05 data logging shield,tipping bucket rain gauge, DS18B20 temp sensor and 3d printed anemometer. 
 This is still a work in progress. 
-Code and STL files will be uploaded soon!
+STL files will be uploaded soon!
