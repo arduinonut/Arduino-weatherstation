@@ -7,13 +7,11 @@
 void rainIRQ()
 {
   noInterrupts();
+  rain ++;
   delayMicroseconds(16000);
   delayMicroseconds(16000);
-  delayMicroseconds(16000);
-  delayMicroseconds(16000);       //Debounce the reed switch
-  rain ++;                   //Each bucket tip is 0.2 mm of water
+  delayMicroseconds(16000);//Debounce the reed switch
   interrupts();
-  attachInterrupt(0, rainIRQ, FALLING);
 }
 
 

@@ -1,8 +1,9 @@
 void datasave()
 {
-  File dataFile = SD.open("datalog.txt", FILE_WRITE);     // if the file is available, write to it:
   clock.getTime();
-  if (dataFile) {
+  File dataFile = SD.open("datalog.txt", FILE_WRITE);     // if the file is available, write to it:
+  if (dataFile)
+  {
     dataFile.print(clock.hour, DEC);
     dataFile.print(":");
     dataFile.print(clock.minute, DEC);

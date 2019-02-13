@@ -22,15 +22,15 @@ Nokia_5110 lcd = Nokia_5110(RST, CE, DC, DIN, CLK);
 DS1307 clock;                   //define a object of DS1307 class
 const int chipSelect = 10;      // Chipselect for the datalogging shield
 //Global variables
-float lasthour;
-float minutes;
-float seconds;
-float midnight;
-float dailyrainin;          //Accumulated rain over the day - so far - in mm
+int lasthour = 0;
+int minutes = 0;
+int seconds = 0;
+int midnight = 00;
+float dailyrainin = 0;          //Accumulated rain over the day - so far - in mm
 volatile float rain;
-volatile float temp;
-float hightemp;
-float lowtemp;
+float temp = 0;
+float hightemp = 0;
+float  lowtemp = 50;
 //volatile float wind;
 //volatile float windSpeed;
 // float lowwind;
@@ -45,8 +45,8 @@ DallasTemperature sensors(&oneWire);
 
 void setup()
 {
-  midnight = 23;
-  dailyrainin = 0.00; rain = 0;   //Reset rainguage count
+  dailyrainin = 0.00; 
+  rain = 0;   //Reset rainguage count
   Serial.begin(9600);
   sensors.begin();
   clock.begin();
@@ -79,7 +79,6 @@ void setup()
 
 void loop()
 {
-
   clock.getTime();
   minutes = clock.minute, DEC;
   seconds = clock.second, DEC;
@@ -88,29 +87,28 @@ void loop()
   sensors.requestTemperatures();
   sensors.getTempCByIndex(0);
 
-
+  tempCalc();
   calcWeather ();
   lcd.clear();
   lcd.setContrast(40);
   printTime();
-  lcd.println("");
   lcd.print(temp);
-  lcd.print("C");
-  lcd.println (hightemp);
-  lcd.print(",");
+  lcd.println("C");
+  lcd.print (hightemp);
+  lcd.print("");
+  lcd.print("-");
   lcd.print (lowtemp);
-  lcd.print (",");
   lcd.println("");
   lcd.print("Reenval");
   lcd.print("=");
   lcd.print (dailyrainin);
   lcd.println ("mm");
   //lcd.println(windSpeed);
-  delay(3000);
+  delay(1000);
 
-  if (lasthour = midnight && minutes > 59 && seconds > 55)
+  if (lasthour == midnight && minutes == 1 && seconds <= 5)
   {
     resetDay();                          //Reset all the variables that need daily resetting
   }
-  delay(100);
+  delay(3000);
 }
